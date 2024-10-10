@@ -3,6 +3,9 @@ import cors from 'cors';
 import { connection } from "./postgres/postgres.js";
 import router from "./view/LocationRouter.js";
 
+import { connection } from "./postgres/postgres.js";
+
+
 const app = express();
 app.use(express.json())
 app.use(cors())
