@@ -1,7 +1,7 @@
 import { DataTypes, Op } from 'sequelize';
 
 const generateLocationId = async (locationType, Location) => {
-    const prefix = locationType.slice(0, 3).toUpperCase(); // Extract first 3 characters of locationType
+    const prefix = locationType.slice(0, 3).toUpperCase(); 
 
     // Fetch the latest locationId with the same prefix (for systematic generation)
     const lastLocation = await Location.findOne({
@@ -41,7 +41,7 @@ export const createLocationModel = (sequelize) => {
             validate: {
                 len: [9, 9]
             }
-        }
+        }, 
     });
 
     // Pre-save hook to automatically generate the locationId based on locationType
