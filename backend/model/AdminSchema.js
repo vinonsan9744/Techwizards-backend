@@ -1,22 +1,23 @@
 import { DataTypes } from "sequelize";
-import crypto from 'crypto'; // To generate a random part for the AdminId
+const generateAdminId = async (AdminModel) => {
+  const count = await AdminModel.count();
+  return `AID${String(count + 1).padStart(3, '0')}`; // Generates IDs like AID001, AID002, etc.
+};
 
 export const createAdminModel = (sequelize) => {
   const Admin = sequelize.define('Admin', {
-    // Custom auto-generated AdminId
+    
     AdminId: {
-      type: DataTypes.STRING(9), // Like AID001
+      type: DataTypes.STRING(6), // Like AID001
       primaryKey: true, // Primary key
       unique: true
     },
 
-    // Admin Name
     AdminName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
 
-    // Email with validation to ensure it's unique and follows email format
     Email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -26,13 +27,13 @@ export const createAdminModel = (sequelize) => {
       }
     },
 
-    // Password with validation for length and complexity
     Password: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         len: {
-          args: [8, 100], // Minimum length of 8 characters
+          args: [8, 8], // Minimum length of 8 characters
           msg: "Password must be at least 8 characters long."
         },
         isComplexPassword(value) {
@@ -46,12 +47,9 @@ export const createAdminModel = (sequelize) => {
     }
   });
 
-  // Auto-generate AdminId before creation
   Admin.beforeCreate(async (admin) => {
-    const locationType = 'AID'; // Static part of the AdminId
-    const randomDigits = crypto.randomInt(100000, 999999).toString(); // Generates a 6-digit number
-    admin.AdminId = `${locationType}${randomDigits}`; // e.g., AID001234
-  });
+    admin.AdminId = await generateAdminId(Admin);   
+});
 
   return Admin;
 }

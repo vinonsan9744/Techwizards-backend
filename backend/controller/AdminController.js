@@ -36,3 +36,36 @@ export const addAdmin = async (req, res) => {
     return res.status(500).json({ "error": "Internal server error" });
   }
 }
+// Get an admin by ID (New function)
+export const getAdminById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const admin = await AdminModel.findOne({ where: { AdminId: id } });
+    if (!admin) {
+      return res.status(404).json({ error: "Admin not found" });
+    }
+    return res.status(200).json(admin);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// POST - Login with AdminId and Password
+export const adminLogin = async (req, res) => {
+  const { AdminId, Password } = req.body;
+  try {
+    const admin = await AdminModel.findOne({ where: { AdminId: AdminId } });
+    if (!admin) {
+      return res.status(404).json({ error: "Admin ID not found" });
+    }
+    if (admin.Password !== Password) {
+      return res.status(401).json({ error: "Incorrect password" });
+    }
+    return res.status(200).json({ message: "Login successful", admin });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+}
