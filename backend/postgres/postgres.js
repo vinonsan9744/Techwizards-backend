@@ -1,7 +1,9 @@
 import { Sequelize } from "sequelize";
 import { createLocationModel } from "../model/LocationSchema.js";
 import { createLocomotivePilotModel } from "../model/LocomotivePilotSchema.js";
-import {createAdminModel} from "../model/AdminSchema.js"
+import {createAdminModel} from "../model/AdminSchema.js";
+import { createHazardModel } from "../model/HazardSchema.js";
+import {createLocomotivePilotHazardModel} from "../model/LocomotivePilotHazardSchema.js"
 
 // Setup the connection to PostgreSQL database
 const sequelize = new Sequelize('TechWizard', 'postgres', 'root', {
@@ -12,6 +14,8 @@ const sequelize = new Sequelize('TechWizard', 'postgres', 'root', {
 let LocationModel = null;
 let LocomotivePilotModel = null;
 let AdminModel = null;
+let HazardModel = null;
+let LocomotivePilotHazardModel = null;
 
 // Establish the connection and sync the model
 const connection = async () => {
@@ -23,6 +27,9 @@ const connection = async () => {
         LocationModel = await createLocationModel(sequelize);
         LocomotivePilotModel = await createLocomotivePilotModel(sequelize);
         AdminModel = await createAdminModel(sequelize);
+        HazardModel = await createHazardModel(sequelize);
+        LocomotivePilotHazardModel = await createLocomotivePilotHazardModel (sequelize);
+
 
         await sequelize.sync();
         console.log('Database synced successfully.');
@@ -38,6 +45,8 @@ export {
     connection,
     LocationModel,
     LocomotivePilotModel,
-    AdminModel
+    AdminModel,
+    HazardModel,
+    LocomotivePilotHazardModel
 }
 

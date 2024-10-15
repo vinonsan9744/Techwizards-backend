@@ -5,6 +5,9 @@ import locationRouter from "./view/LocationRouter.js";
 import locomotivePilotRouter from "./view/LocomotivePilotRouter.js";
 import  adminRouter from "./view/AdminRouter.js"; 
 
+import hazardRouter from "./view/HazardRouter.js"; 
+import locomotivePilotHazardRouter from "./view/LocomotivePilotHazardRouter.js";
+
 
 const app = express();
 app.use(express.json())
@@ -13,6 +16,10 @@ app.use(cors())
 app.use('/location', locationRouter);
 app.use('/locomotivePilot', locomotivePilotRouter);
 app.use('/admin', adminRouter);
+
+app.use('/hazard', hazardRouter);
+app.use('/pilotHazard',locomotivePilotHazardRouter);
+
 
 
 const PORT=8000;
