@@ -36,6 +36,7 @@ export const addAdmin = async (req, res) => {
     return res.status(500).json({ "error": "Internal server error" });
   }
 }
+
 // Get an admin by ID (New function)
 export const getAdminById = async (req, res) => {
   const { id } = req.params;
@@ -69,3 +70,4 @@ export const adminLogin = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 }
+

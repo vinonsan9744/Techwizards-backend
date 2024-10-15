@@ -32,6 +32,7 @@ export const addLocomotivePilot = async (req, res) => {
     }
 };
 
+
 // Get locomotive pilot by ID
 export const getLocomotivePilotById = async (req, res) => {
     const { id } = req.params;
@@ -101,3 +102,4 @@ export const locomotivePilotLogin = async (req, res) => {
     }
   }
   
+

@@ -28,6 +28,10 @@ export const addLocation = async (req, res) => {
             await LocationModel.create(req.body);
             return res.status(201).json({ message: "Location added successfully" });
         }
+
+
+        // Location already exists
+
         return res.status(409).json({ message: "Location already exists" });
     } 
     catch (error) {

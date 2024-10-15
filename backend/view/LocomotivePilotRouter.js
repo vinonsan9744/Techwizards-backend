@@ -1,4 +1,5 @@
 import express from "express";
+
 import {
     getAllLocomotivePilots,
     addLocomotivePilot,
@@ -8,11 +9,15 @@ import {
 }
     from "../controller/LocomotivePilotController.js";
 
+
 const router = express.Router();
 router.get("/getAll", getAllLocomotivePilots);
 router.post("/addlocomotivePilot", addLocomotivePilot);
+
 router.get('/getByLPid/:id', getLocomotivePilotById);
 router.put('/:id', updateLocomotivePilot);
 router.post('/login', locomotivePilotLogin);
+
+
 
 export default router;
